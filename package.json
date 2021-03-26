@@ -1,0 +1,53 @@
+{
+  "name": "project-a",
+  "version": "1.0.0",
+  "description": "웹페이지",
+  "main": "src/server/index.js",
+  "scripts": {
+    "clear": "rimraf build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production run-s build:**",
+    "build:client": "webpack --config webpack.client.config.js",
+    "build:server": "webpack --config webpack.server.config.js",
+    "start": "cross-env NODE_ENV=production run-s build:** start:server",
+    "start:server": "node build/server/bundle.js",
+    "dev:client": "webpack serve --config webpack.client.config.js",
+    "dev:server": "nodemon --ignore build --exec \"run-s build:server start:server\"",
+    "dev": "cross-env NODE_ENV=development run-p dev:client dev:server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/myks790/project-a.git"
+  },
+  "author": "Kang Sang-hun",
+  "bugs": {
+    "url": "https://github.com/myks790/project-a/issues"
+  },
+  "homepage": "https://github.com/myks790/project-a#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.12.13",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.22.0",
+    "eslint-plugin-react": "^7.23.1",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2",
+    "webpack-merge": "^5.7.3",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.13.10",
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
