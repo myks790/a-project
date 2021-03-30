@@ -1,9 +1,11 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require('path');
 const { merge } = require('webpack-merge');
 const sharedConfig = require('./webpack.shared.config.js');
 
-const clientPort = 8080;
-const publicPath = `http://localhost:${clientPort}/scripts`
+const devMode = process.env.NODE_ENV === "development"
+const devServerPort = 8080
+const publicPath = `http://localhost:${devServerPort}/scripts`
 
 const config = {
   target: 'web',
@@ -14,10 +16,35 @@ const config = {
     publicPath: publicPath
   },
   devServer: {
-    port: clientPort,
+    port: devServerPort,
     publicPath: publicPath,
     liveReload : true
-  }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: devMode,
+            },
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: devMode,
+            },
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new MiniCssExtractPlugin(),
+  ],
 };
 
 module.exports = merge(sharedConfig, config);

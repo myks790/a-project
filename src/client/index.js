@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../shared/App';
+import App from './App';
 
-window.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.hydrate(
-      <App />,
-      document.getElementById('ssr-app')
-  ); 
-}); 
+ReactDOM.hydrate(
+  <App />,
+  document.getElementById('root')
+); 

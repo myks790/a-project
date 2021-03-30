@@ -1,7 +1,7 @@
 const path = require('path');
 const { merge } = require('webpack-merge');
 const sharedConfig = require('./webpack.shared.config.js');
-const webpackNodeExternals = require('webpack-node-externals');
+const nodeExternals = require('webpack-node-externals');
 
 const config = {
   target: 'node',
@@ -10,7 +10,17 @@ const config = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build/server'),
   },
-  externals: [webpackNodeExternals()],
+  externals: [nodeExternals({allowlist: [/normalize.css/]})],
+  module: {
+    rules: [
+      {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          "ignore-loader",
+        ],
+      },
+    ],
+  },
 };
 
 module.exports = merge(sharedConfig, config);
